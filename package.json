@@ -1,0 +1,44 @@
+{
+  "name": "smartfarm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "beautify": "lint-staged",
+    "start": "nodemon --inspect src/index.js",
+    "watch": "node-sass --watch src/resources/scss/ -o src/public/css/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daothanhhuy/do_an_iot.git"
+  },
+  "keywords": [
+    "smartfarm",
+    "nhom5",
+    "Iot"
+  ],
+  "author": "Nhom5",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daothanhhuy/do_an_iot/issues"
+  },
+  "homepage": "https://github.com/daothanhhuy/do_an_iot#readme",
+  "lint-staged": {
+    "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.3.5"
+  },
+  "devDependencies": {
+    "lint-staged": "^12.5.0",
+    "morgan": "^1.10.0",
+    "node-sass": "^7.0.1",
+    "nodemon": "^2.0.16",
+    "prettier": "^2.6.2"
+  }
+}

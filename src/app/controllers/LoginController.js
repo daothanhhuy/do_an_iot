@@ -24,6 +24,7 @@ class LoginController {
                             console.log(isMatch);
                             session=req.session;
                             session.userid= user._id;
+                            session.nickname = user.nickname;
                             session.username = req.body.username;
                             console.log(req.session)
                             res.status(200).render('dashboard/show');
@@ -53,6 +54,7 @@ class LoginController {
         const newUser = new User({
             username: req.body.username,
             password: req.body.password,
+            nickname: req.body.nickname,
         })
         newUser.save()
             .then(() => {

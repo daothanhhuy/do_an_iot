@@ -33,6 +33,10 @@ app.use(sessions({
     cookie: { maxAge: oneDay },
     resave: false 
 }));
+app.use(function (req, res, next) {
+    res.locals.session = req.session;
+    next();
+});
 var session;
 // cookie parser middleware
 app.use(cookieParser());

@@ -11,7 +11,7 @@ const methodOverride = require('method-override');
 
 const dbURI =
     'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/DoAn?retryWrites=true&w=majority';
-// const host = '172.31.250.62'
+const host = '172.31.250.62'
 async function connect() {
     try {
         await mongoose.connect(dbURI, {
@@ -22,6 +22,14 @@ async function connect() {
         console.log('Failed to connect');
     }
 }
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+ })
+
+
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 // session
@@ -81,5 +89,5 @@ route(app);
 
 // Start listening
 app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
+    console.log(`App listening on port ${host}:${port}`);
 });

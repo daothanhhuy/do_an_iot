@@ -66,7 +66,7 @@ const container = document.querySelector(".container"),
             if(response.status === 200) {
                 console.log('Success:');
                 $('.wrong-login').attr("style", "display:none;");
-                //location.href = ""
+                location.href = "/dashboard";
             }
             else {
                 console.log('wrong password or username:');

@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 
 const dbURI =
-    'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/Lab4?retryWrites=true&w=majority';
+    'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/DoAn?retryWrites=true&w=majority';
 // const host = '172.31.250.62'
 async function connect() {
     try {

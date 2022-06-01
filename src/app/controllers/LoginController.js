@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('../../models/user.js');
+var session;
 class LoginController {
     // POST led 1
     index(req, res, next) {
@@ -7,11 +8,11 @@ class LoginController {
     }
 
     login(req, res, next) {
-        const user = {
-            name: req.body.username
-        }
-        console.log(req.body.username)
-        console.log(req.body.password)
+        // const user = {
+        //     name: req.body.username
+        // }
+        // console.log(req.body.username)
+        // console.log(req.body.password)
         User.findOne({ username: req.body.username }, function(err, user) {
             if (err) {throw 'wrong';}
             try {
@@ -21,25 +22,32 @@ class LoginController {
                         console.log(req.body.password, isMatch);
                         if(isMatch)  {
                             console.log(isMatch);
-                            res.status(200).send({
-                                message: "Success login"
-                            })
+                            session=req.session;
+                            session.userid= user._id;
+                            session.username = req.body.username;
+                            console.log(req.session)
+                            res.status(200).render('dashboard/show');
                             return;
                         }
                         else {
+                            console.log('failed');
                             res.status(404).send({
                                 message: "Failed"
                             })
+                            return;
                         }
                     }
                     catch  {}
                      // -&gt; Password123: true
                 });
-            } catch {}
+            } catch {
+                console.log('failed');
+                    res.status(404).send({
+                    message: "Failed"
+                    })
+            }
         })
-        res.status(404).send({
-            message: "Failed"
-        })
+        
     }
     signup (req, res, next) {
         const newUser = new User({

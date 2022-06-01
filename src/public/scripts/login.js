@@ -43,8 +43,8 @@ const container = document.querySelector(".container"),
             e.preventDefault();
             
         });
-        const username = $("#login-username");
-        const password = $("#login-password");
+        const username = $("#login-username").val();
+        const password = $("#login-password").val();
         fetch("http://localhost:3000/login", {
             // Adding method type
             method: "POST",
@@ -65,7 +65,8 @@ const container = document.querySelector(".container"),
             console.log(response.status);
             if(response.status === 200) {
                 console.log('Success:');
-                location.href = ""
+                $('.wrong-login').attr("style", "display:none;");
+                //location.href = ""
             }
             else {
                 console.log('wrong password or username:');

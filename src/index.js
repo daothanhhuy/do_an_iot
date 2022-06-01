@@ -22,6 +22,21 @@ async function connect() {
         console.log('Failed to connect');
     }
 }
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+// session
+// creating 24 hours from milliseconds
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
+var session;
+// cookie parser middleware
+app.use(cookieParser());
+// method override
 app.use(methodOverride('_method'));
 connect();
 // use urlencoded

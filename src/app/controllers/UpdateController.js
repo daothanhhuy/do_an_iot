@@ -7,6 +7,7 @@ const Log = require('../../models/log.js')
 
 
 class UpdateController{
+    // update/device
     async addDevice(req, res){
         const data = new Device({
             _id: new mongoose.Types.ObjectId(),
@@ -27,7 +28,7 @@ class UpdateController{
     }
 
   
-    // Update dht data
+    // update/dht
     async updateDht(req, res){
         const data = new DHT({
             _id: new mongoose.Types.ObjectId(),
@@ -66,8 +67,9 @@ class UpdateController{
                 //res.send(log)
                 console.log('Update temperature log')
             })
-            .catch(() => {
-                res.send('Failed to create');
+            .catch((err) => {
+                // res.status(404).send('Failed to create');
+                console.log(err)
                 return;
             });
         const log2 = new Log({
@@ -89,6 +91,7 @@ class UpdateController{
             });
     }
 
+    // update/bh
     async updateBh(req, res, next) {
         const data = new BH({
             _id: new mongoose.Types.ObjectId(),
@@ -125,7 +128,9 @@ class UpdateController{
                 res.send('Failed to create');
             });
     }
+    
 
+    // update/soil
     async updateSoil(req, res){
         const data = new Soil({
             _id: new mongoose.Types.ObjectId(),
@@ -164,6 +169,7 @@ class UpdateController{
             });
 
     }
+
     loging(req, res, next) {
         const log = new Log({
             _id: new mongoose.Types.ObjectId(),

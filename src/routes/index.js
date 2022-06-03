@@ -1,4 +1,3 @@
-
 const updateRouter = require('./update.js');
 const refreshRouter = require('./refresh.js');
 const loginRouter = require('./login.js');
@@ -10,7 +9,6 @@ const manualRouter = require('./manual.js');
 const logRouter = require('./log.js');
 const enterLogRouter = require('./enterlog.js');
 function route(app) {
-    
     app.use('/dashboard', dashboardRouter);
     app.use('/logout', logoutRouter);
     app.use('/update', updateRouter); // /update

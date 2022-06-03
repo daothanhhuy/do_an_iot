@@ -13,14 +13,14 @@ const dhtSchema = new Schema(
             required: true,
             ref: 'Devices',
         },
-        createdAt:{
+        createdAt: {
             type: Date,
-            default: Date.now
+            default: Date.now,
         },
-        updatedAt:{
+        updatedAt: {
             type: Date,
-            default: Date.now
-        }
+            default: Date.now,
+        },
     },
     // {
     //     timestamps: true,

@@ -1,48 +1,45 @@
 const mongoose = require('mongoose');
-const Device = require('../../models/devices.js')
-const DHT = require('../../models/dht.js')
-const Soil = require('../../models/soil.js')
-const BH = require('../../models/bh.js')
-const Log = require('../../models/log.js')
-const _io = require('../../index').io
+const Device = require('../../models/devices.js');
+const DHT = require('../../models/dht.js');
+const Soil = require('../../models/soil.js');
+const BH = require('../../models/bh.js');
+const Log = require('../../models/log.js');
+const _io = require('../../index').io;
 
-
-class UpdateController{
+class UpdateController {
     // update/device
-    async addDevice(req, res){
+    async addDevice(req, res) {
         const data = new Device({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
-            imgUrl: req.body.imgUrl
-        })
+            imgUrl: req.body.imgUrl,
+        });
 
         data.save()
-            .then(result =>{
-                console.log(result)
-                res.status(200).send(result._id.toString())
+            .then((result) => {
+                console.log(result);
+                res.status(200).send(result._id.toString());
             })
-            .catch(err => {
-                console.log('Fail to update to database')
-                console.log(err)
-                res.status(400).send('Fail to update to db.')
-            })
+            .catch((err) => {
+                console.log('Fail to update to database');
+                console.log(err);
+                res.status(400).send('Fail to update to db.');
+            });
     }
     // update/dht
-    async updateDht(req, res){
+    async updateDht(req, res) {
         const data = new DHT({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
             temp: req.body.temp,
             humi: req.body.humi,
             attachTo: req.body.attachTo,
-
         });
-        _io.emit('sendDht', data)
-        
+        _io.emit('sendDht', data);
+
         data.save()
             .then((result) => {
-                console.log('Update dht data to db.')
-               
+                console.log('Update dht data to db.');
             })
             .catch((err) => {
                 console.log(err);
@@ -66,11 +63,11 @@ class UpdateController{
             .then(() => {
                 console.log(log1);
                 //res.send(log)
-                console.log('Update temperature log')
+                console.log('Update temperature log');
             })
             .catch((err) => {
                 // res.status(404).send('Failed to create');
-                console.log(err)
+                console.log(err);
                 return;
             });
         const log2 = new Log({
@@ -83,11 +80,11 @@ class UpdateController{
         });
         log2.save()
             .then(() => {
-                console.log('Update humidity log')
+                console.log('Update humidity log');
                 res.status(200).send('Ok');
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err);
                 res.send('Failed to create');
             });
     }
@@ -129,16 +126,15 @@ class UpdateController{
                 res.send('Failed to create');
             });
     }
-    
 
     // update/soil
-    async updateSoil(req, res){
+    async updateSoil(req, res) {
         const data = new Soil({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
             soilHumi: req.body.soilHumi,
             attachTo: req.body.attachTo,
-        })
+        });
 
         data.save()
             .then((result) => {
@@ -168,7 +164,6 @@ class UpdateController{
             .catch(() => {
                 res.send('Failed to create');
             });
-
     }
 
     loging(req, res, next) {
@@ -188,7 +183,6 @@ class UpdateController{
                 res.send('Failed to create');
             });
     }
-
 }
 
 module.exports = new UpdateController();

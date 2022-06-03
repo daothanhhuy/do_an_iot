@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const soilSchema = new Schema(
     {
@@ -16,7 +16,7 @@ const soilSchema = new Schema(
     {
         timestamps: true,
     },
-)
+);
 
-const soil = new mongoose.model('soil', soilSchema)
-module.exports = soil
+const soil = new mongoose.model('soil', soilSchema);
+module.exports = soil;

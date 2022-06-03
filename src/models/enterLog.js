@@ -9,12 +9,11 @@ const enterLogSchema = new Schema(
             ref: 'Devices',
         },
         ip: { type: String, required: true },
-        name: { type: String, required: true},
-        img:
-        {
+        name: { type: String, required: true },
+        img: {
             data: Buffer,
-            contentType: String
-        }
+            contentType: String,
+        },
     },
     {
         timestamps: true,

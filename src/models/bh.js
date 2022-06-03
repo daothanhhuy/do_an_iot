@@ -19,15 +19,14 @@ const bhSchema = new Schema(
             type: mongoose.Types.ObjectId,
             ref: 'Devices',
         },
-        createdAt:{
+        createdAt: {
             type: Date,
-            default: Date.now
+            default: Date.now,
         },
-        updatedAt:{
+        updatedAt: {
             type: Date,
-            default: Date.now
-        }
-    
+            default: Date.now,
+        },
     },
 
     // {

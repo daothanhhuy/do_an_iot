@@ -12,7 +12,7 @@
     <button id="btnExport" onclick="exportReportToExcel(this)">EXPORT REPORT</button>
     
     <div class="row">
-        <button class="btn btn-sm btn-primary mt-4" id="btn-delete-all">Delete All</button>
+        <button class="btn btn-sm btn-primary mt-4" id="btn-delete-all" data-toggle="modal" data-target="#delete-all-log-modal">Delete All</button>
     </div>
     <div class="row" style="height:400px">
         <table class="table">
@@ -85,6 +85,26 @@
         </div>
     </div>
 </div>
+{{!-- Confirm delete log --}}
+<div id="delete-all-log-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Remove all log?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to remove all log</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="btn-delete-all-log" type="button" class="btn btn-danger">Delete All</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 {{!-- Hidden delete form --}}
 <form name="delete-log-form" method="POST"></form>
@@ -108,12 +128,15 @@
         var checkboxAll = $('#checkbox-all')
         var logItemCheckbox = $('input[name="logIds[]"]')
         var deleteAllForm = document.forms['delete-all-log-form'];
-        var btnDeleteAll = document.getElementById('btn-delete-all');
+        var btnDeleteAll = document.getElementById('btn-delete-all-log');
         // user choice on view
 
         $('#delete-log-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             logId = button.data('id') // Extract info from data-* attributes
+        });
+        $('#delete-log-all-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
         });
         btnDeleteAll.onclick = function () {
             deleteAllForm.action = '/logs/delete-all-log?_method=DELETE';

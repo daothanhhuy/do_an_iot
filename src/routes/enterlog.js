@@ -4,16 +4,15 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'src/uploads')
+        cb(null, 'src/uploads');
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
+        cb(null, file.fieldname + '-' + Date.now() + '.png');
+    },
 });
 
 var upload = multer({ storage: storage });
 const enterLogController = require('../app/controllers/EnterLogController');
-
 
 // router.delete('/:id', enterLogController.destroy);
 // router.get('/filter', enterLogController.filter);

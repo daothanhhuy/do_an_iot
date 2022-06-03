@@ -2,11 +2,11 @@ const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const sass = require('node-sass');
-const http = require('http')
+const http = require('http');
 const app = express();
-const server  = http.createServer(app)
-const io = require('socket.io')(server)
-exports.io = io
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+exports.io = io;
 const path = require('path');
 const route = require('./routes');
 const mongoose = require('mongoose');
@@ -15,7 +15,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const fs = require('fs');
 const multer = require('multer');
-const host = '172.31.250.62'
+const host = '172.31.250.62';
 async function connect() {
     try {
         await mongoose.connect(process.env.MONGO_URL, {
@@ -29,28 +29,32 @@ async function connect() {
     }
 }
 
-io.on('connect', socket => {
-    console.log('User conenct to socket io')
-})
+io.on('connect', (socket) => {
+    console.log('User conenct to socket io');
+});
 
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept',
+    );
     next();
- })
+});
 
-
-const cookieParser = require("cookie-parser");
+const cookieParser = require('cookie-parser');
 const sessions = require('express-session');
 // session
 // creating 24 hours from milliseconds
 const oneDay = 1000 * 60 * 60 * 24;
-app.use(sessions({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized:true,
-    cookie: { maxAge: oneDay },
-    resave: false 
-}));
+app.use(
+    sessions({
+        secret: 'thisismysecrctekeyfhrgfgrfrty84fwir767',
+        saveUninitialized: true,
+        cookie: { maxAge: oneDay },
+        resave: false,
+    }),
+);
 app.use(function (req, res, next) {
     res.locals.session = req.session;
     next();
@@ -91,7 +95,7 @@ app.engine(
                 var base = Buffer.from(a);
                 var conversion = base.toString('base64');
                 return conversion;
-            }
+            },
         },
     }),
 );
@@ -105,13 +109,13 @@ route(app);
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads')
+        cb(null, 'uploads');
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
+        cb(null, file.fieldname + '-' + Date.now());
+    },
 });
-  
+
 const upload = multer({ storage: storage });
 // Start listening
 const port = process.env.PORT || 3000;

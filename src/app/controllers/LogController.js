@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const User = require('../../models/user.js');
 const Log = require('../../models/log.js');
+const DHT = require('../../models/dht.js')
+const Soil = require('../../models/soil.js')
+const BH = require('../../models/bh.js')
 var session;
 class LogController {
     index (req, res, next) {
@@ -10,6 +13,7 @@ class LogController {
             //res.render('log/show');
             let perPage = 6; // số lượng sản phẩm xuất hiện trên 1 page
             let page = req.query.page || 1;
+            if (page == 0) page = 1;
             //let page = 1 || 1;
             var title = 'Logs';
             var logsObject = [];
@@ -43,10 +47,52 @@ class LogController {
             }else
                 res.redirect('/');
     }
+    // [DELETE] /logs/:id
     destroy(req, res, next) {
         Log.deleteOne({ _id: req.params.id })
             .then(() => res.redirect('back'))
             .catch(next);
+    }
+    // [DELETE] /logs/delete-all
+    destroyAll(req, res, next) {
+        console.log("Im at delete all")
+        BH.remove({}, function(err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(result);
+            }
+        });
+        DHT.remove({}, function(err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(result);
+            }
+        });
+        Soil.remove({}, function(err, result) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(result);
+            }
+        });
+        Log.remove({}, function(err, result) {
+            if (err) {
+                console.log(err);
+                res.status(404).send({
+                    message: "Error: cannot connect to database",
+                })
+            }
+            else {
+                console.log(result);
+                res.redirect('/logs/')
+            }
+            
+        })
     }
     // show(req, res, next) {
     //     let perPage = 6; // số lượng sản phẩm xuất hiện trên 1 page
@@ -87,6 +133,7 @@ class LogController {
         if(session.userid) {
             let perPage = 6; // số lượng sản phẩm xuất hiện trên 1 page
             let page = req.query.page || 1;
+            if (page == 0) page = 1;
             //let page = 1 || 1;
             var title = 'Logs';
             var logsObject = [];

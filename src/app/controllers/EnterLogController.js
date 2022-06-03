@@ -12,6 +12,24 @@ class EnterLogController {
             .then(() => res.redirect('back'))
             .catch(next);
     }
+    // [DELETE] enterlog/delete-all
+    destroyAll(req, res, next) {
+        console.log("Im at delete all")
+        EnterLogs.remove({}, function(err, result) {
+            if (err) {
+                console.log(err);
+                res.status(404).send({
+                    message: "Error: cannot connect to database",
+                })
+            }
+            else {
+                console.log(result);
+                res.redirect('/enterlog/')
+            }
+            
+        })
+    }
+
     detail(req, res, next) {
         session=req.session;
         const tittle = "Enter Log/Detail"
@@ -49,6 +67,7 @@ class EnterLogController {
             var itemsObject = [];
             let perPage = 6; // số lượng sản phẩm xuất hiện trên 1 page
             let page = req.query.page || 1;
+            if (page == 0) page = 1;
             //let page = 1 || 1;
             var title = 'Logs';
             EnterLogs.find() // find tất cả các data
@@ -113,6 +132,7 @@ class EnterLogController {
         if(session.userid) {
             let perPage = 6; // số lượng sản phẩm xuất hiện trên 1 page
             let page = req.query.page || 1;
+            if (page == 0) page = 1;
             //let page = 1 || 1;
             var title = 'Enter Logs';
             var itemsObject = [];

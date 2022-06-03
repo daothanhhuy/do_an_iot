@@ -10,8 +10,9 @@
         </div>
     </div>
     <button id="btnExport" onclick="exportReportToExcel(this)">EXPORT REPORT</button>
+    
     <div class="row">
-        <h3></h3>
+        <button class="btn btn-sm btn-primary mt-4" id="btn-delete-all">Delete All</button>
     </div>
     <div class="row" style="height:400px">
         <table class="table">
@@ -86,9 +87,8 @@
 </div>
 
 {{!-- Hidden delete form --}}
-<form name="delete-log-form" method="POST">
-
-</form>
+<form name="delete-log-form" method="POST"></form>
+<form name="delete-all-log-form" method="POST"></form>
 <script>
     function exportReportToExcel() {
     let table = document.getElementsByTagName("table"); // you can use document.getElementById('tableId') as well by providing id to the table tag
@@ -107,13 +107,18 @@
         var btnApply = $('#btn-apply')
         var checkboxAll = $('#checkbox-all')
         var logItemCheckbox = $('input[name="logIds[]"]')
-
+        var deleteAllForm = document.forms['delete-all-log-form'];
+        var btnDeleteAll = document.getElementById('btn-delete-all');
         // user choice on view
 
         $('#delete-log-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             logId = button.data('id') // Extract info from data-* attributes
         });
+        btnDeleteAll.onclick = function () {
+            deleteAllForm.action = '/logs/delete-all-log?_method=DELETE';
+            deleteAllForm.submit();
+        };
         btnDeleteLog.onclick = function () {
             deleteForm.action = '/logs/' + logId + '?_method=DELETE';
             deleteForm.submit();

@@ -21,6 +21,7 @@ const enterLogController = require('../app/controllers/EnterLogController');
 router.get('/filter', enterLogController.filter);
 router.get('/filter/:page', enterLogController.filter);
 router.get('/detail/:id', enterLogController.detail);
+router.delete('/delete-all-log', enterLogController.destroyAll);
 router.delete('/:id', enterLogController.destroy);
 router.post('/upload', upload.single('image'), enterLogController.upload);
 router.get('/', enterLogController.index);

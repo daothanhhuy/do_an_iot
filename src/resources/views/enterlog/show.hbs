@@ -47,6 +47,7 @@
 <div class="container-fluid bg-gray logs-table">
     <div>
         <h3>Enter Logs</h3>
+        <button class="btn btn-sm btn-primary mt-4" id="btn-delete-all">Delete All</button>
         <div class="mt-4 d-flex align-items-center">
             <form method="GET" action='/enterlog/filter'>
             <input type="text" class="form-control-sm mr-4" name="q" id="input-filter" class="mt-4" placeholder="Enter your filter here" required>
@@ -128,9 +129,10 @@
 </div>
 
 {{!-- Hidden delete form --}}
-<form name="delete-log-form" method="POST">
+<form name="delete-log-form" method="POST"></form>
+<form name="delete-all-log-form" method="POST"></form>
 
-</form>
+
 <script>
     function exportReportToExcel() {
     let table = document.getElementsByTagName("table"); // you can use document.getElementById('tableId') as well by providing id to the table tag
@@ -143,19 +145,24 @@
     }
     // Apply button Action
     document.addEventListener('DOMContentLoaded', function() {
-        var deleteForm = document.forms['delete-log-form']
+        var deleteForm = document.forms['delete-log-form'];
+        var deleteAllForm = document.forms['delete-all-log-form'];
         var logId;
         var btnDeleteLog = document.getElementById('btn-delete-log');
         var btnApply = $('#btn-apply')
         var checkboxAll = $('#checkbox-all')
         var logItemCheckbox = $('input[name="logIds[]"]')
-
+        var btnDeleteAll = document.getElementById('btn-delete-all');
         // user choice on view
-
+        console.log(btnDeleteAll);
         $('#delete-log-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             logId = button.data('id') // Extract info from data-* attributes
         });
+        btnDeleteAll.onclick = function () {
+            deleteAllForm.action = '/enterlog/delete-all-log?_method=DELETE';
+            deleteAllForm.submit();
+        };
         btnDeleteLog.onclick = function () {
             deleteForm.action = '/enterlog/' + logId + '?_method=DELETE';
             deleteForm.submit();

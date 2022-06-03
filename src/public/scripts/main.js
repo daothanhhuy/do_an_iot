@@ -266,6 +266,8 @@ var randomScalingFactor = function() {
     //     window.myGauge4.update();
     // }, 3000);
   //})
+
+
   const url = `http://localhost:3000/manual`
     const sendingLeds = (url, data) => {
         fetch(url, {
@@ -277,55 +279,68 @@ var randomScalingFactor = function() {
         .then(json => console.log(json))
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        $("input[type=checkbox]#motor").change(function(){
-            console.log(this)
-            if ( this.checked ){
-                const data = {motor:"on"}
+    const clientId = 'webClient';
+    const host = 'ws://172.31.251.191:9001'
 
-                var isChecked = $("input[type=checkbox]#light-bulb").is(":checked")
-                if(isChecked){
-                    data.lightbulb = "on"
-                } else {
-                    data.lightbulb = "off"
-                }
-                sendingLeds(url, data)
+    var topicPump = 'pump'
+    var topicBulb = 'bulb'
+    var topicServo = 'servo'
+
+    const options = {
+      keepalive: 60,
+      clientId: clientId,
+      protocolId: 'MQTT',
+      protocolVersion: 4,
+      clean: true,
+      reconnectPeriod: 1000,
+      connectTimeout: 30 * 1000,
+      will: {
+          topic: 'WillMsg',
+          payload: 'Connection Closed abnormally..!',
+          qos: 0,
+          retain: false
+      },
+    }
+
+    console.log('Connecting mqtt client')
+
+    const client = mqtt.connect(host, options)
+
+    client.on('error', (err) => {
+      console.log('Connection error: ', err)
+      client.end()
+    })
+
+
+    client.on('reconnect', () => {
+      console.log('Reconnecting...')
+    })
+
+    client.on('connect', ()=>{
+      console.log('Client connected')
+      // client.publish('test', 'Web browser connect')
+    })
+
+    document.addEventListener('DOMContentLoaded', function() {
+        $("input[type=checkbox]#pump").change(function(){
+            if ( this.checked ){
+                var data = JSON.stringify({pump:true})
+                client.publish(topicPump, data);
             
             } else {
-                const data = {motor:"off"}
-                var isChecked = $("input[type=checkbox]#light-bulb").is(":checked")
-                if(isChecked){
-                    data.lightbulb = "on"
-                } else {
-                    data.lightbulb = "off"
-                }
-                sendingLeds(url, data)
-              }
+                var data = JSON.stringify({pump:false})
+                client.publish(topicPump, data)
+            }
         })
-        $("input[type=checkbox]#light-bulb").change(function(){
-            console.log(this)
+
+        $("input[type=checkbox]#bulb").change(function(){
             if ( this.checked ){
-                const data = {}
-                let isChecked = $("input[type=checkbox]#motor").is(":checked")
-                if(isChecked){
-                    data.motor = "on"
-                } else {
-                    data.motor = "off"
-                }
-                data.lightbulb = 'on'
-                sendingLeds(url, data)
-            
+                var data = JSON.stringify({servo: true})
+                client.publish(topicServo, data);
             }
             else {
-                const data = {}
-                let isChecked = $("input[type=checkbox]#motor").is(":checked")
-                if(isChecked){
-                    data.motor = "on"
-                } else {
-                    data.motor = "off"
-                }
-                data.lightbulb = 'off'
-               sendingLeds(url, data)
+                var data = JSON.stringify({servo: false})
+                client.publish(topicServo, data)
         }
     })
   })

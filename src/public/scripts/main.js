@@ -265,7 +265,6 @@ window.onload = function () {
 //     });
 //     window.myGauge4.update();
 //   });
-<<<<<<< HEAD
   //document.addEventListener('DOMContentLoaded', () => {
     // setInterval(() => {
     //     soilHumiConfig.data.datasets.forEach(function(dataset) {
@@ -335,7 +334,7 @@ window.onload = function () {
             if ( this.checked ){
                 var data = JSON.stringify({pump:true})
                 client.publish(topicPump, data);
-            
+                   
             } else {
                 var data = JSON.stringify({pump:false})
                 client.publish(topicPump, data)
@@ -350,74 +349,7 @@ window.onload = function () {
             else {
                 var data = JSON.stringify({servo: false})
                 client.publish(topicServo, data)
-=======
-//document.addEventListener('DOMContentLoaded', () => {
-// setInterval(() => {
-//     soilHumiConfig.data.datasets.forEach(function(dataset) {
-//         dataset.data = randomData();
-//         dataset.value = randomValue(dataset.data);
-//     });
-//     window.myGauge4.update();
-// }, 3000);
-//})
-const url = `http://localhost:3000/manual`;
-const sendingLeds = (url, data) => {
-    fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({ data }),
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
-};
-
-document.addEventListener('DOMContentLoaded', function () {
-    $('input[type=checkbox]#motor').change(function () {
-        console.log(this);
-        if (this.checked) {
-            const data = { motor: 'on' };
-
-            var isChecked = $('input[type=checkbox]#light-bulb').is(':checked');
-            if (isChecked) {
-                data.lightbulb = 'on';
-            } else {
-                data.lightbulb = 'off';
-            }
-            sendingLeds(url, data);
-        } else {
-            const data = { motor: 'off' };
-            var isChecked = $('input[type=checkbox]#light-bulb').is(':checked');
-            if (isChecked) {
-                data.lightbulb = 'on';
-            } else {
-                data.lightbulb = 'off';
-            }
-            sendingLeds(url, data);
->>>>>>> 5a3fa706c6250a749039b0c5985f64176212e4c6
         }
     });
-    $('input[type=checkbox]#light-bulb').change(function () {
-        console.log(this);
-        if (this.checked) {
-            const data = {};
-            let isChecked = $('input[type=checkbox]#motor').is(':checked');
-            if (isChecked) {
-                data.motor = 'on';
-            } else {
-                data.motor = 'off';
-            }
-            data.lightbulb = 'on';
-            sendingLeds(url, data);
-        } else {
-            const data = {};
-            let isChecked = $('input[type=checkbox]#motor').is(':checked');
-            if (isChecked) {
-                data.motor = 'on';
-            } else {
-                data.motor = 'off';
-            }
-            data.lightbulb = 'off';
-            sendingLeds(url, data);
-        }
-    });
+    
 });

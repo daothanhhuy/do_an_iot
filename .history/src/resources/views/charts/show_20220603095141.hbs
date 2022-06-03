@@ -45,24 +45,23 @@ var chartData = {
 
 document.addEventListener('DOMContentLoaded', function() {
     function getData() {
-    const url = 'http://localhost:3000/charts/get-data';
+    const url = 'http://{{{host}}}:3000/charts/get-data';
     fetch(url)
     .then((response) => {
         return response.json();
     })
     .then((data) => {
-        chartData.temp = data.data.temp;
-        chartData.humid = data.data.humi;
-        chartData.lux = data.data.lux;
-        chartData.soilHumi = data.data.soilHumi;
-        chartData.tempCreatedAt = data.data.tempCreatedAt;
-        chartData.humiCreatedAt = data.data.humiCreatedAt;
-        chartData.soilCreatedAt = data.data.soilCreatedAt;
-        chartData.luxCreatedAt = data.data.luxCreatedAt;
-        console.log(chartData)
+        chartData.temp = data.data.temp,
+        chartData.humi = data.data.humi,
+        chartData.lux = data.data.lux,
+        chartData.soilHumi = data.data.soilHumi,
+        chartData.tempCreatedAt = data.data.tempCreatedAt,
+        chartData.humiCreatedAt = data.data.humiCreatedAt,
+        chartData.soilCreatedAt = data.data.soilCreatedAt,
+        chartData.luxCreatedAt = data.data.luxCreatedAt
     })
     .catch(() => {
-        console.log("errot");
+        console.error("errot");
     })
     }
     const ctx = document.getElementById('myChart').getContext('2d');
@@ -96,8 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                 onRefresh: chart => {
                 // query your data source and get the array of {x: timestamp, y: value} objects
-                getData();
-                var data = { x: Date.now(), y: chartData.temp};
+                getData()
+                var data = { x: chartData.tempCreatedAt, y: chartData.temp};
                 // append the new data array to the existing chart data
                 chart.data.datasets[0].data.push(data);
                 }
@@ -133,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 onRefresh: chart => {
 
                     // query your data source and get the array of {x: timestamp, y: value} objects
-                    var data = { x: Date.now(), y: chartData.humid};
+                    var data = { x: chartData.humiCreatedAt, y: chartData.humi};
                     // append the new data array to the existing chart data
                     chart.data.datasets[0].data.push(data);
                     }
@@ -175,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 onRefresh: chart => {
 
                     // query your data source and get the array of {x: timestamp, y: value} objects
-                    var data = { x: Date.now(), y: chartData.soilHumi};
+                    var data = { x: chartData.soilCreatedAt, y: chartData.soilHumi};
                     // append the new data array to the existing chart data
                     chart.data.datasets[0].data.push(data);
                     }
@@ -191,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     const luxCtx = document.getElementById('luxChart').getContext('2d');
     const luxChart = new Chart(luxCtx, {
-    type: 'line',             // 'line', 'bar', 'bubble' and 'scatter' types are supported
+    type: 'scatter',             // 'line', 'bar', 'bubble' and 'scatter' types are supported
     data: {
         datasets: [{
         label: 'Light',
@@ -218,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 onRefresh: chart => {
                     console.log(chartData.lux)
                     // query your data source and get the array of {x: timestamp, y: value} objects
-                    var data = { x: Date.now(), y: chartData.lux};
+                    var data = { x: chartData.luxCreatedAt, y: chartData.lux};
                     // append the new data array to the existing chart data
                     chart.data.datasets[0].data.push(data);
                     }

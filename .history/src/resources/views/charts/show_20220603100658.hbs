@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 onRefresh: chart => {
                 // query your data source and get the array of {x: timestamp, y: value} objects
                 getData();
-                var data = { x: Date.now(), y: chartData.temp};
+                var data = { x: chartData.tempCreatedAt, y: chartData.temp};
                 // append the new data array to the existing chart data
                 chart.data.datasets[0].data.push(data);
                 }
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 onRefresh: chart => {
 
                     // query your data source and get the array of {x: timestamp, y: value} objects
-                    var data = { x: Date.now(), y: chartData.humid};
+                    var data = { x: chartData.humiCreatedAt, y: chartData.humid};
                     // append the new data array to the existing chart data
                     chart.data.datasets[0].data.push(data);
                     }
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 onRefresh: chart => {
 
                     // query your data source and get the array of {x: timestamp, y: value} objects
-                    var data = { x: Date.now(), y: chartData.soilHumi};
+                    var data = { x: chartData.soilCreatedAt, y: chartData.soilHumi};
                     // append the new data array to the existing chart data
                     chart.data.datasets[0].data.push(data);
                     }
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     const luxCtx = document.getElementById('luxChart').getContext('2d');
     const luxChart = new Chart(luxCtx, {
-    type: 'line',             // 'line', 'bar', 'bubble' and 'scatter' types are supported
+    type: 'scatter',             // 'line', 'bar', 'bubble' and 'scatter' types are supported
     data: {
         datasets: [{
         label: 'Light',
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 onRefresh: chart => {
                     console.log(chartData.lux)
                     // query your data source and get the array of {x: timestamp, y: value} objects
-                    var data = { x: Date.now(), y: chartData.lux};
+                    var data = { x: chartData.luxCreatedAt, y: chartData.lux};
                     // append the new data array to the existing chart data
                     chart.data.datasets[0].data.push(data);
                     }

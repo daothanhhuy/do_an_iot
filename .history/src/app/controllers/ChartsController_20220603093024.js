@@ -7,7 +7,7 @@ const SL = require('../../models/soil.js');
 //var ChartStreaming = require('chartjs-plugin-streaming');
 
 //Chart.register(ChartStreaming);
-let host = "172.31.250.62"
+let host = ""
 class ChartsController {
     // GET /
     async index(req, res, next) {
@@ -24,30 +24,17 @@ class ChartsController {
         res.render('charts/show', { data: data, title: title, host: host });
     }
     async getdata(req, res, next) {
-        try{
-            const dht = await DHT.findOne().sort({ createdAt: -1 });
-            const bh = await BH.findOne().sort({ createdAt: -1 });
-            const sl = await SL.findOne().sort({ createdAt: -1 });
-            let data = {
-                temp: dht.temp,
-                humi: dht.humi,
-                lux: bh.lux,
-                soildHumi: sl.soildHumi,
-                tempCreatedAt: dht.createdAt,
-                humiCreatedAt: dht.createdAt,
-                soilCreatedAt: sl.createdAt,
-                luxCreatedAt: bh.createdAt,
-            };
-            console.log(data);
-            res.json({ data: data });
-        }
-        catch(err){
-            res.status(404).send({
-                message: "err"
-            })
-        }
+        const dht = await DHT.findOne().sort({ createdAt: -1 });
+        const bh = await BH.findOne().sort({ createdAt: -1 });
+        const sl = await SIL.findOne().sort({ createdAt: -1 });
+        let data = {
+            temp: dht.temp,
+            humi: dht.humi,
+            lux: bh.lux,
+            soildHumi: sl.soildHumi,
+        };
+        res.json({ data: data });
     }
-        
 }
 
 module.exports = new ChartsController();

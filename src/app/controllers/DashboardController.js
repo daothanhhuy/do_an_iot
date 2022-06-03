@@ -8,7 +8,7 @@ class DashboardController {
             res.render('dashboard/show');
         }else
             res.redirect('/');
-        }
+    }
 }
 
 module.exports = new DashboardController();

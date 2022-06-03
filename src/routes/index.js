@@ -8,6 +8,7 @@ const chartsRouter = require('./charts.js');
 const mainRouter = require('./main.js');
 const manualRouter = require('./manual.js');
 const logRouter = require('./log.js');
+const enterLogRouter = require('./enterlog.js');
 function route(app) {
     
     app.use('/dashboard', dashboardRouter);
@@ -18,6 +19,7 @@ function route(app) {
     app.use('/charts', chartsRouter);
     app.use('/manual', manualRouter);
     app.use('/logs', logRouter);
+    app.use('/enterlog', enterLogRouter);
     app.use('/', loginRouter);
 }
 

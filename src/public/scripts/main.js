@@ -257,7 +257,7 @@ var randomScalingFactor = function() {
 //     });
 //     window.myGauge4.update();
 //   });
-  document.addEventListener('DOMContentLoaded', () => {
+  //document.addEventListener('DOMContentLoaded', () => {
     // setInterval(() => {
     //     soilHumiConfig.data.datasets.forEach(function(dataset) {
     //         dataset.data = randomData();
@@ -265,4 +265,67 @@ var randomScalingFactor = function() {
     //     });
     //     window.myGauge4.update();
     // }, 3000);
+  //})
+  const url = `http://localhost:3000/manual`
+    const sendingLeds = (url, data) => {
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({data}),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        $("input[type=checkbox]#motor").change(function(){
+            console.log(this)
+            if ( this.checked ){
+                const data = {motor:"on"}
+
+                var isChecked = $("input[type=checkbox]#light-bulb").is(":checked")
+                if(isChecked){
+                    data.lightbulb = "on"
+                } else {
+                    data.lightbulb = "off"
+                }
+                sendingLeds(url, data)
+            
+            } else {
+                const data = {motor:"off"}
+                var isChecked = $("input[type=checkbox]#light-bulb").is(":checked")
+                if(isChecked){
+                    data.lightbulb = "on"
+                } else {
+                    data.lightbulb = "off"
+                }
+                sendingLeds(url, data)
+              }
+        })
+        $("input[type=checkbox]#light-bulb").change(function(){
+            console.log(this)
+            if ( this.checked ){
+                const data = {}
+                let isChecked = $("input[type=checkbox]#motor").is(":checked")
+                if(isChecked){
+                    data.motor = "on"
+                } else {
+                    data.motor = "off"
+                }
+                data.lightbulb = 'on'
+                sendingLeds(url, data)
+            
+            }
+            else {
+                const data = {}
+                let isChecked = $("input[type=checkbox]#motor").is(":checked")
+                if(isChecked){
+                    data.motor = "on"
+                } else {
+                    data.motor = "off"
+                }
+                data.lightbulb = 'off'
+               sendingLeds(url, data)
+        }
+    })
   })

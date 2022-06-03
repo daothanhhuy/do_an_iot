@@ -7,6 +7,7 @@ const logoutRouter = require('./logout.js');
 const chartsRouter = require('./charts.js');
 const mainRouter = require('./main.js');
 const manualRouter = require('./manual.js');
+const logRouter = require('./log.js');
 function route(app) {
     
     app.use('/dashboard', dashboardRouter);
@@ -16,6 +17,7 @@ function route(app) {
     app.use('/main', mainRouter);
     app.use('/charts', chartsRouter);
     app.use('/manual', manualRouter);
+    app.use('/logs', logRouter);
     app.use('/', loginRouter);
 }
 

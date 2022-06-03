@@ -26,8 +26,6 @@ class UpdateController{
                 res.status(400).send('Fail to update to db.')
             })
     }
-
-  
     // update/dht
     async updateDht(req, res){
         const data = new DHT({

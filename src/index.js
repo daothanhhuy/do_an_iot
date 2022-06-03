@@ -20,6 +20,7 @@ async function connect() {
         console.log('Connect successfully');
     } catch (error) {
         console.log('Failed to connect');
+        connect();
     }
 }
 

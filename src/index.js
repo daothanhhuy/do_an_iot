@@ -2,7 +2,11 @@ const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const sass = require('node-sass');
+const http = require('http')
 const app = express();
+const server  = http.createServer(app)
+const io = require('socket.io')(server)
+exports.io = io
 const path = require('path');
 const port = 3000;
 const route = require('./routes');
@@ -22,6 +26,10 @@ async function connect() {
         console.log('Failed to connect');
     }
 }
+
+io.on('connect', socket => {
+    console.log('User conenct to socket io')
+})
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -88,6 +96,6 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 route(app);
 
 // Start listening
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`App listening on port ${host}:${port}`);
 });

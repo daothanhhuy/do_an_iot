@@ -38,7 +38,8 @@
     "express-session": "^1.17.3",
     "luxon": "^2.4.0",
     "method-override": "^3.0.0",
-    "mongoose": "^6.3.5"
+    "mongoose": "^6.3.5",
+    "socket.io": "^4.5.1"
   },
   "devDependencies": {
     "lint-staged": "^12.5.0",

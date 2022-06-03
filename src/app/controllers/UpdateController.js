@@ -4,6 +4,7 @@ const DHT = require('../../models/dht.js')
 const Soil = require('../../models/soil.js')
 const BH = require('../../models/bh.js')
 const Log = require('../../models/log.js')
+const _io = require('../../index').io
 
 
 class UpdateController{
@@ -36,12 +37,14 @@ class UpdateController{
             temp: req.body.temp,
             humi: req.body.humi,
             attachTo: req.body.attachTo,
-        });
 
+        });
+        _io.emit('sendDht', data)
         
         data.save()
             .then((result) => {
                 console.log('Update dht data to db.')
+               
             })
             .catch((err) => {
                 console.log(err);

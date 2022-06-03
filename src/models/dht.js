@@ -13,10 +13,18 @@ const dhtSchema = new Schema(
             required: true,
             ref: 'Devices',
         },
+        createdAt:{
+            type: Date,
+            default: Date.now
+        },
+        updatedAt:{
+            type: Date,
+            default: Date.now
+        }
     },
-    {
-        timestamps: true,
-    },
+    // {
+    //     timestamps: true,
+    // },
 );
 
 const DHT = mongoose.model('dht', dhtSchema);

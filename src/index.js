@@ -8,23 +8,24 @@ const server  = http.createServer(app)
 const io = require('socket.io')(server)
 exports.io = io
 const path = require('path');
-const port = 3000;
 const route = require('./routes');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
-
-const dbURI =
-    'mongodb+srv://hackblack86:123@demo.gxocm.mongodb.net/DoAn?retryWrites=true&w=majority';
+const bodyParser = require('body-parser');
+require('dotenv').config();
+const fs = require('fs');
+const multer = require('multer');
 const host = '172.31.250.62'
 async function connect() {
     try {
-        await mongoose.connect(dbURI, {
+        await mongoose.connect(process.env.MONGO_URL, {
+            // useNewUrlParser: true,
+            // useUnifiedTopology: true
             //useCreateIndex: true,
         });
         console.log('Connect successfully');
     } catch (error) {
         console.log('Failed to connect');
-        connect();
     }
 }
 
@@ -86,6 +87,11 @@ app.engine(
                 var c = parseInt(a) + parseInt(b);
                 return c;
             },
+            toString64: (a) => {
+                var base = Buffer.from(a);
+                var conversion = base.toString('base64');
+                return conversion;
+            }
         },
     }),
 );
@@ -95,8 +101,20 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 
 // connect to route file
 route(app);
+// setup multer to upload image
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+  
+const upload = multer({ storage: storage });
 // Start listening
+const port = process.env.PORT || 3000;
 server.listen(port, () => {
     console.log(`App listening on port ${host}:${port}`);
 });

@@ -5,8 +5,7 @@ const enterLogSchema = new Schema(
     {
         _id: { type: mongoose.Types.ObjectId, required: true },
         attachTo: {
-            type: String,
-            required: true,
+            type: mongoose.Types.ObjectId,
             ref: 'Devices',
         },
         ip: { type: String, required: true },

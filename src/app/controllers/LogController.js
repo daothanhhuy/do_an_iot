@@ -31,7 +31,7 @@ class LogController {
                                 createdAt: log.createdAt.toLocaleDateString(),
                             });
                         });
-                        console.log(logsObject);
+                        //console.log(logsObject);
                         res.render('log/show', {
                             title: title,
                             logsObject: logsObject,
@@ -115,7 +115,7 @@ class LogController {
                                 createdAt: log.createdAt.toLocaleDateString(),
                             });
                         });
-                        console.log(logsObject);
+                        //console.log(logsObject);
                         res.render('log/filter', {
                             title: title,
                             logsObject: logsObject,

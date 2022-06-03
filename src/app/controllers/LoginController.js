@@ -19,19 +19,19 @@ class LoginController {
                 user.comparePassword(req.body.password, function(err, isMatch) {
                     try {
                         if (err) {throw err; }
-                        console.log(req.body.password, isMatch);
+                        //console.log(req.body.password, isMatch);
                         if(isMatch)  {
                             console.log(isMatch);
                             session=req.session;
                             session.userid= user._id;
                             session.nickname = user.nickname;
                             session.username = req.body.username;
-                            console.log(req.session)
+                            //console.log(req.session)
                             res.status(200).render('dashboard/show');
                             return;
                         }
                         else {
-                            console.log('failed');
+                            //console.log('failed');
                             res.status(404).send({
                                 message: "Failed"
                             })
@@ -58,14 +58,14 @@ class LoginController {
         })
         newUser.save()
             .then(() => {
-                console.log(newUser)
+                //console.log(newUser)
                 console.log("Create new user successfully")
                 res.status(200).send({
                     message: "New user added",
                 })
             })
             .catch((err) => {
-                console.log(err)
+                //console.log(err)
                 res.status(303).send({
                     massage: "Failed to create",
                     err: "username had already exist",

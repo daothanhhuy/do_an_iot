@@ -4,7 +4,11 @@ var session;
 class LoginController {
     // POST led 1
     index(req, res, next) {
-        res.render('login/show', { layout: false });
+        var title = "Login";
+        res.render('login/show', { 
+            layout: false, 
+            title: title 
+        });
     }
 
     login(req, res, next) {
@@ -28,7 +32,7 @@ class LoginController {
                                 session.nickname = user.nickname;
                                 session.username = req.body.username;
                                 //console.log(req.session)
-                                res.status(200).render('dashboard/show');
+                                res.status(200).redirect('/dashboard');
                                 return;
                             } else {
                                 //console.log('failed');

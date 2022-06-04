@@ -5,7 +5,10 @@ class DashboardController {
     index(req, res, next) {
         session = req.session;
         if (session.userid) {
-            res.render('dashboard/show');
+            var title = "Dashboard";
+            res.render('dashboard/show', {
+                title: title,
+            });
         } else res.redirect('/');
     }
 }

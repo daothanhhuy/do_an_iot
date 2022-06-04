@@ -33,7 +33,7 @@ class EnterLogController {
 
     detail(req, res, next) {
         session = req.session;
-        const tittle = 'Enter Log/Detail';
+        const title = 'Enter Log/Detail';
         if (session.userid) {
             EnterLogs.findOne({ _id: req.params.id }, (err, item) => {
                 if (err) {
@@ -51,7 +51,7 @@ class EnterLogController {
                     //console.log(newItem);
                     res.render('enterlog/detail', {
                         items: newItem,
-                        tittle: tittle,
+                        title: title,
                     });
                 }
             });
@@ -68,7 +68,7 @@ class EnterLogController {
             let page = req.query.page || 1;
             if (page == 0) page = 1;
             //let page = 1 || 1;
-            var title = 'Logs';
+            var title = 'Enter Logs';
             EnterLogs.find() // find tất cả các data
                 .skip(perPage * page - perPage) // Trong page đầu tiên sẽ bỏ qua giá trị là 0
                 .limit(perPage)

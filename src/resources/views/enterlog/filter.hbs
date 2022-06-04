@@ -127,12 +127,7 @@
         var deleteAllForm = document.forms['delete-all-log-form'];
         var logId;
         var btnDeleteLog = document.getElementById('btn-delete-log');
-        var btnApply = $('#btn-apply')
-        var checkboxAll = $('#checkbox-all')
-        var logItemCheckbox = $('input[name="logIds[]"]')
         var btnDeleteAll = document.getElementById('btn-delete-all');
-        // user choice on view
-        console.log(btnDeleteAll);
         $('#delete-log-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             logId = button.data('id') // Extract info from data-* attributes
@@ -148,39 +143,39 @@
         
     })
     //
-    var btnPrevious = document.getElementById('btn-previous')
-    var btnFirst = document.getElementById('btn-first')
-    var btnNext = document.getElementById('btn-next')
-    var btnNext2 = document.getElementById('btn-next-2')
-    var btnNext3 = document.getElementById('btn-next-3')
-    var btn1 = document.getElementById('btn-1')
-    var btnLast = document.getElementById('btn-last')
-    var pMore = document.getElementById('more')
-    var pMoreLast = document.getElementById('more-to-last')
+    var btnPrevious = document.getElementById('btn-previous');
+    var btnFirst = document.getElementById('btn-first');
+    var btnNext = document.getElementById('btn-next');
+    var btnNext2 = document.getElementById('btn-next-2');
+    var btnNext3 = document.getElementById('btn-next-3');
+    var btn1 = document.getElementById('btn-1');
+    var btnLast = document.getElementById('btn-last');
+    var pMore = document.getElementById('more');
+    var pMoreLast = document.getElementById('more-to-last');
     if ({{{current}}} === 1) {
-        btnPrevious.classList.add('disabled')
-        btnFirst.classList.add('disabled')
-        btn1.style.display = "none"
-        pMore.style.display = "none"
+        btnPrevious.classList.add('disabled');
+        btnFirst.classList.add('disabled');
+        btn1.style.display = "none";
+        pMore.style.display = "none";
     }
     else {
-        btnPrevious.classList.remove('disabled')
-        btnFirst.classList.remove('disabled')
+        btnPrevious.classList.remove('disabled');
+        btnFirst.classList.remove('disabled');
     }
     if({{{current}}} === {{{pages}}}) {
-        btnNext.classList.add('disabled')
-        btnLast.classList.add('disabled')
-        btnLast.style.display = "none"
-        pMoreLast.style.display = "none"
+        btnNext.classList.add('disabled');
+        btnLast.classList.add('disabled');
+        btnLast.style.display = "none";
+        pMoreLast.style.display = "none";
     }
     else {
         btnLast.classList.remove('disabled')
         btnNext.classList.remove('disabled')
     }
     if (!({{{pages}}} - {{{current}}} > 1)) {
-        btnNext2.style.display = "none"
+        btnNext2.style.display = "none";
     }
     if (!({{{pages}}} - {{{current}}} > 2)) {
-        btnNext3.style.display = "none"
+        btnNext3.style.display = "none";
     }
 </script>

@@ -8,11 +8,6 @@ class LoginController {
     }
 
     login(req, res, next) {
-        // const user = {
-        //     name: req.body.username
-        // }
-        // console.log(req.body.username)
-        // console.log(req.body.password)
         User.findOne({ username: req.body.username }, function (err, user) {
             if (err) {
                 throw 'wrong';

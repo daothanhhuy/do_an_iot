@@ -108,7 +108,7 @@ class EnterLogController {
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
             attachTo: req.body.attachTo,
-            ip: '172.31.250.10',
+            ip: req.body.ip || '172.0.0.0',
             img: {
                 data: fs.readFileSync(
                     path.join(

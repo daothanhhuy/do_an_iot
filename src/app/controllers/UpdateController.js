@@ -35,7 +35,8 @@ class UpdateController {
             humi: req.body.humi,
             attachTo: req.body.attachTo,
         });
-        _io.emit('sendDht', data);
+        _io.emit('sendDht', data); // for charts.hbs
+        _io.emit('sendDhtMain', data) // for main.hbs
 
         data.save()
             .then((result) => {
@@ -97,6 +98,9 @@ class UpdateController {
             lux: req.body.lux,
             attachTo: req.body.attachTo,
         });
+
+        _io.emit('sendBh', data)
+        _io.emit('sendBhMain', data)
         data.save()
             .then((result) => {
                 console.log(result);
@@ -135,6 +139,8 @@ class UpdateController {
             soilHumi: req.body.soilHumi,
             attachTo: req.body.attachTo,
         });
+
+        _io.emit('sendSoilMain', data)
 
         data.save()
             .then((result) => {

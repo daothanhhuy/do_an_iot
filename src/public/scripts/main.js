@@ -1,3 +1,5 @@
+var socket = io(); // kết nối đến server
+
 var randomScalingFactor = function () {
     return Math.round(Math.random() * 100);
 };
@@ -24,7 +26,7 @@ var tempConfig = {
         //labels: ['Success', 'Warning', 'Warning', 'Error'],
         datasets: [
             {
-                data: [20, 30, 40],
+                data: [20, 30, 50],
                 value: 20,
                 backgroundColor: ['#baabe4', 'green', 'red'],
                 borderWidth: 2,
@@ -75,6 +77,7 @@ var tempConfig = {
         },
     },
 };
+
 var humiConfig = {
     type: 'gauge',
     data: {
@@ -132,6 +135,7 @@ var humiConfig = {
         },
     },
 };
+
 var lightConfig = {
     type: 'gauge',
     data: {
@@ -139,7 +143,7 @@ var lightConfig = {
         datasets: [
             {
                 data: [200, 300, 1000],
-                value: value,
+                value: 200,
                 backgroundColor: ['red', 'orange', 'green'],
                 borderWidth: 2,
             },
@@ -189,6 +193,8 @@ var lightConfig = {
         },
     },
 };
+
+
 var soilHumiConfig = {
     type: 'gauge',
     data: {
@@ -247,6 +253,13 @@ var soilHumiConfig = {
     },
 };
 
+// This code is stupid
+function addData(chart, data){
+    chart.data.datasets[0].value = data
+    chart.update()
+}
+
+
 window.onload = function () {
     var ctx1 = document.getElementById('temp-chart').getContext('2d');
     window.myGauge1 = new Chart(ctx1, tempConfig);
@@ -256,6 +269,23 @@ window.onload = function () {
     window.myGauge3 = new Chart(ctx3, lightConfig);
     var ctx4 = document.getElementById('soil-humi-chart').getContext('2d');
     window.myGauge4 = new Chart(ctx4, soilHumiConfig);
+
+    socket.on('sendDhtMain', data =>{
+        console.log('dht main')
+        addData(window.myGauge1, data.temp)
+        addData(window.myGauge2, data.humi)
+    })
+
+    socket.on('sendBhMain', data => {
+        console.log('bh main')
+        addData(window.myGauge3, data.lux)
+    })
+
+    socket.on('sendSoilMain', data =>{
+        console.log('soil main')
+        addData(window.myGauge4, data.soilHumi)
+    })
+
 };
 
 //   document.getElementById('randomizeData').addEventListener('click', function() {
@@ -288,11 +318,11 @@ window.onload = function () {
     }
 
     const clientId = 'webClient';
-    const host = 'ws://172.31.251.191:9001'
+    const host = 'ws://172.31.251.191:9001';
 
-    var topicPump = 'pump'
-    var topicBulb = 'bulb'
-    var topicServo = 'servo'
+    var topicPump = 'pump';
+    var topicBulb = 'bulb';
+    var topicServo = 'servo';
 
     const options = {
       keepalive: 60,
@@ -349,7 +379,7 @@ window.onload = function () {
             else {
                 var data = JSON.stringify({servo: false})
                 client.publish(topicServo, data)
-        }
-    });
+            }
+        });
     
 });

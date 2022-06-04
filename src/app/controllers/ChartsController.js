@@ -20,7 +20,7 @@ class ChartsController {
                         temp: dht.temp,
                         humi: dht.humi,
                         lux: bh.lux,
-                        soildHumi: sl.soildHumi,
+                        soilHumi: sl.soilHumi,
                     };
                 }
                 catch(err){
@@ -47,7 +47,7 @@ class ChartsController {
                 temp: dht.temp,
                 humi: dht.humi,
                 lux: bh.lux,
-                soildHumi: sl.soildHumi,
+                soilHumi: sl.soilHumi,
                 tempCreatedAt: dht.createdAt,
                 humiCreatedAt: dht.createdAt,
                 soilCreatedAt: sl.createdAt,

@@ -5,27 +5,26 @@
 <script
     src='https://unpkg.com/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.js'
 ></script>
-<div class='container-fluid mt-5'>
+<div class='container-fluid '>
     <div class='row justify-content-center'>
-        <div id='canvas-holder' style='width:30%;;margin-right:20px;'>
+        <div id='canvas-holder' style='width:35%;;margin-right:20px;'>
             <canvas id='temp-chart' width='600' height='300'></canvas>
         </div>
-        <div id='canvas-holder' style='width:30%;'>
+        <div id='canvas-holder' style='width:35%;'>
             <canvas id='humi-chart' width='600' height='300'></canvas>
         </div>
     </div>
     <div class='row justify-content-center' style='margin-top:40px'>
-        <div id='canvas-holder' style='width:30%;;margin-right:20px;'>
+        <div id='canvas-holder' style='width:35%;;margin-right:20px;'>
             <canvas id='light-chart' width='600' height='300'></canvas>
         </div>
-        <div id='canvas-holder' style='width:30%'>
+        <div id='canvas-holder' style='width:35%'>
             <canvas id='soil-humi-chart'></canvas>
         </div>
     </div>
-    <p
-    >----------------------------------------------------------------------------------------------------------------------------------------------</p>
+    <hr>
     <h3>Manual control</h3>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-3">
         <div class="col col-3 d-flex">
             <p class= "">Motor</p>
             <label class="switch">
@@ -37,6 +36,13 @@
             <p class= "">Light</p>
             <label class="switch">
                 <input type="checkbox" id="bulb">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="col col-3 d-flex">
+            <p class= "">Servo</p>
+            <label class="switch">
+                <input type="checkbox" id="servo">
                 <span class="slider round"></span>
             </label>
         </div>

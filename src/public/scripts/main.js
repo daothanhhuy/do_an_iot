@@ -373,6 +373,17 @@ window.onload = function () {
 
         $("input[type=checkbox]#bulb").change(function(){
             if ( this.checked ){
+                var data = JSON.stringify({bulb: true})
+                client.publish(topicBulb, data);
+            }
+            else {
+                var data = JSON.stringify({bulb: false})
+                client.publish(topicBulb, data)
+            }
+        });
+
+        $("input[type=checkbox]#servo").change(function(){
+            if ( this.checked ){
                 var data = JSON.stringify({servo: true})
                 client.publish(topicServo, data);
             }

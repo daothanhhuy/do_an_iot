@@ -131,6 +131,7 @@ class EnterLogController {
             }
         });
     }
+    
     filter(req, res, next) {
         session = req.session;
         if (session.userid) {

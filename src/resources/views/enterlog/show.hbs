@@ -1,4 +1,4 @@
-<h1>To Upload Image on mongoDB</h1>
+{{!-- <h1>To Upload Image on mongoDB</h1>
     <hr>
     <div>
         <form action="/enterlog/upload" method="POST" enctype="multipart/form-data">
@@ -23,7 +23,7 @@
         </form>
     </div>
 
-    <hr>
+    <hr> --}}
     {{!--   
     <h1>Uploaded Images</h1>
     <div>
@@ -46,15 +46,15 @@
 <div class="container-fluid bg-gray logs-table">
     <div>
         <h3>Enter Logs</h3>
-        <button class="btn btn-sm btn-primary mt-4" id="btn-delete-all">Delete All</button>
-        <div class="mt-4 d-flex align-items-center">
+        <button class="btn btn-sm btn-primary mt-2" id="btn-delete-all">Delete All</button>
+        <div class="mt-2 d-flex align-items-center">
             <form method="GET" action='/enterlog/filter'>
                 <input type="text" class="form-control-sm mr-4" name="q" id="input-filter" class="mt-4" placeholder="Enter your filter here" required>
-                <button class="btn btn-sm btn-primary btn-apply mt-4" id="btn-apply" >Apply</button>
+                <button class="btn btn-sm btn-primary btn-apply " id="btn-apply" >Apply</button>
             </form>
         </div>
     </div>
-    <button id="btnExport" onclick="exportReportToExcel(this)">EXPORT REPORT</button>
+    <button class="btn btn-primary mt-2" id="btnExport" onclick="exportReportToExcel(this)">EXPORT REPORT</button>
     <div class="row">
         <h3></h3>
     </div>
@@ -93,15 +93,15 @@
     <div class="row justify-content-center">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item" id="btn-previous"><a class="page-link" href="/logs?page={{{sum current -1}}}">Previous</a></li>
-                <li class="page-item" id="btn-1"><a class="page-link" href="/logs?page=1">1</a></li>
+                <li class="page-item" id="btn-previous"><a class="page-link" href="/enterlog?page={{{sum current -1}}}">Previous</a></li>
+                <li class="page-item" id="btn-1"><a class="page-link" href="/enterlog?page=1">1</a></li>
                 <p id="more" style="margin: 0 4px">    ...    </p>
-                <li class="page-item" id="btn-first"><a class="page-link" href="/logs?page={{current}}">{{{current}}}</a></li>
-                <li class="page-item"><a class="page-link" id="btn-next-2" href="/logs?page={{{sum current 1}}}">{{{sum current 1}}}</a></li>
-                <li class="page-item"><a class="page-link" id="btn-next-3" href="/logs?page={{{sum current 2}}}">{{{sum current 2}}}</a></li>
+                <li class="page-item" id="btn-first"><a class="page-link" href="/enterlog?page={{current}}">{{{current}}}</a></li>
+                <li class="page-item"><a class="page-link" id="btn-next-2" href="/enterlog?page={{{sum current 1}}}">{{{sum current 1}}}</a></li>
+                <li class="page-item"><a class="page-link" id="btn-next-3" href="/enterlog?page={{{sum current 2}}}">{{{sum current 2}}}</a></li>
                 <p id="more-to-last" style="margin: 0 4px">    ...    </p>
-                <li class="page-item" id="btn-last"><a class="page-link" href="/logs?page={{pages}}">{{pages}}</a></li>
-                <li class="page-item" id="btn-next"><a class="page-link" href="/logs?page={{{sum current 1}}}">Next</a></li>
+                <li class="page-item" id="btn-last"><a class="page-link" href="/enterlog?page={{pages}}">{{pages}}</a></li>
+                <li class="page-item" id="btn-next"><a class="page-link" href="/enterlog?page={{{sum current 1}}}">Next</a></li>
             </ul>
         </nav>
     </div>
